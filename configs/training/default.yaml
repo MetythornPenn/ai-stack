@@ -1,0 +1,106 @@
+# Config file for model training
+# configs/training/default.yaml
+
+# General settings
+project:
+  name: "ai_training_project"
+  version: "0.1.0"
+  description: "AI training project with configurable parameters"
+  seed: 42
+
+# Data settings
+data:
+  dataset: "custom_dataset"  # Name of the dataset
+  train_path: "data/processed/train"
+  val_path: "data/processed/val"
+  test_path: "data/processed/test"
+  batch_size: 32
+  num_workers: 4
+  
+  # Data preprocessing
+  preprocessing:
+    image_size: [224, 224]
+    normalize: true
+    mean: [0.485, 0.456, 0.406]  # ImageNet mean
+    std: [0.229, 0.224, 0.225]   # ImageNet std
+  
+  # Data augmentation
+  augmentation:
+    enabled: true
+    horizontal_flip: true
+    vertical_flip: false
+    rotation_range: 15
+    brightness_range: [0.8, 1.2]
+    contrast_range: [0.8, 1.2]
+
+# Model settings
+model:
+  name: "custom_model"
+  architecture: "resnet50"  # Base architecture
+  pretrained: true  # Use pretrained weights
+  num_classes: 10
+  dropout_rate: 0.2
+  activation: "relu"
+  
+  # Model-specific parameters
+  params:
+    embed_dim: 256
+    depth: 4
+    num_heads: 8
+
+# Training settings
+training:
+  epochs: 100
+  early_stopping:
+    enabled: true
+    patience: 10
+    min_delta: 0.001
+  
+  # Optimizer
+  optimizer:
+    name: "adam"
+    learning_rate: 0.001
+    weight_decay: 0.0001
+    beta1: 0.9
+    beta2: 0.999
+  
+  # Learning rate scheduler
+  lr_scheduler:
+    name: "cosine"
+    warmup_epochs: 5
+    min_lr: 0.00001
+  
+  # Loss function
+  loss:
+    name: "cross_entropy"
+    label_smoothing: 0.1
+  
+  # Gradient settings
+  gradient:
+    clip_norm: 1.0
+    accumulation_steps: 1
+
+# Callbacks and logging
+callbacks:
+  checkpoint:
+    save_best_only: true
+    save_frequency: 5  # Save every N epochs
+    
+  tensorboard:
+    enabled: true
+    log_dir: "logs/tensorboard"
+    
+  csv_logger:
+    enabled: true
+    path: "logs/training/metrics.csv"
+
+# Evaluation settings
+evaluation:
+  metrics: ["accuracy", "precision", "recall", "f1"]
+  confusion_matrix: true
+  
+# Export settings
+export:
+  formats: ["onnx", "tflite", "torchscript"]
+  quantization: true
+  optimize: true
