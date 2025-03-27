@@ -1,7 +1,22 @@
 [project]
-name = "ai-training-stack"
+name = "ai-stack"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.14"
-dependencies = []
+requires-python = ">=3.10"
+dependencies = [
+    "black>=25.1.0",
+    "fastapi>=0.115.12",
+    "gradio>=5.23.1",
+    "isort>=6.0.1",
+    "locust>=2.33.2",
+    "matplotlib>=3.10.1",
+    "numpy>=2.2.4",
+    "pandas>=2.2.3",
+    "pytest>=8.3.5",
+    "ruff>=0.11.2",
+    "scikit-learn>=1.6.1",
+    "tqdm>=4.67.1",
+    "typer>=0.15.2",
+    "uvicorn>=0.34.0",
+]

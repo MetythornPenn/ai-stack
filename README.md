@@ -11,6 +11,7 @@ ai-training-project/
 ├── configs/       # Configuration files
 ├── data/          # Dataset storage
 ├── notebooks/     # Jupyter notebooks
+├── performance/   # Loadtest API 
 ├── scripts/       # Utility scripts
 ├── src/           # Main source code
 ├── api/           # API implementation
@@ -34,27 +35,24 @@ ai-training-project/
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/ai-training-project.git
-   cd ai-training-project
+   git clone https://github.com/MetythornPenn/ai-stack.git konai
+   cd konai
    ```
 
-2. Set up the project structure:
+2. Create a virtual environment and install dependencies using uv:
    ```bash
-   make setup
+   make env 
+   # or 
+   uv venv -p 3.10
+
+   source .venv/env/bin/activate  # On Windows: .uv\env\Scripts\activate
    ```
 
-3. Create a virtual environment and install dependencies using uv:
+3. Install required packages:
    ```bash
-   uv venv
-   source .uv/env/bin/activate  # On Windows: .uv\env\Scripts\activate
-   ```
-
-4. Install required packages:
-   ```bash
-   uv pip install numpy pandas scikit-learn matplotlib
-   uv pip install torch torchvision
-   uv pip install fastapi uvicorn gradio
-   uv pip install pytest black isort ruff
+   make install
+   # or 
+   uv sync
    ```
 
 ## Usage
@@ -63,7 +61,6 @@ The Makefile provides shortcuts for common operations:
 
 ### Development
 
-- **Setup project structure**: `make setup`
 - **Run tests**: `make test`
 - **Format code**: `make format`
 - **Run linters**: `make lint`

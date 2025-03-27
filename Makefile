@@ -4,7 +4,7 @@
 # Default target
 help:
 	@echo "Available commands:"
-	@echo "  make setup       - Set up initial project structure"
+	@echo "  make install     - Install dependencies"
 	@echo "  make env         - Create Python virtual environment using uv"
 	@echo "  make clean       - Clean temporary files and caches"
 	@echo "  make test        - Run tests"
@@ -18,32 +18,15 @@ help:
 	@echo "  make docs        - Generate documentation"
 	@echo "  make docker      - Build Docker image"
 
-# Initial setup
-setup:
-	@echo "Creating project directories..."
-	mkdir -p configs/{model,training,inference}
-	mkdir -p data/{raw,processed,interim,external}
-	mkdir -p notebooks/{exploratory,preprocessing,model_development,results_analysis}
-	mkdir -p scripts/{data_processing,training,evaluation,export,deployment}
-	mkdir -p src/{data,models,training,utils,cli}
-	mkdir -p api/{routes,models,services}
-	mkdir -p ui/{components,pages}
-	mkdir -p export
-	mkdir -p evaluation/{metrics,visualizations,benchmarks}
-	mkdir -p tests/{unit,integration,fixtures}
-	mkdir -p weights/{pretrained,checkpoints}
-	mkdir -p logs/{tensorboard,training,evaluation}
-	mkdir -p docs
-	@echo "Creating initial files..."
-	touch README.md
-	touch .env.example
-	touch .gitignore
-	@echo "Setup complete!"
+# Dependency management
+install:
+	@echo "Installing dependencies..."
+	uv sync --dev 
 
 # Virtual environment management
 env:
 	@echo "Creating virtual environment with uv..."
-	uv venv
+	uv venv --python 3.10
 
 # Clean temporary files
 clean:
