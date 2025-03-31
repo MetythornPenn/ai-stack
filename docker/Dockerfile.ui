@@ -1,22 +1,18 @@
-# docker/Dockerfile.docs
+# docker/Dockerfile.ui
 
-FROM node:18-slim
+FROM python:3.10-slim
 
 WORKDIR /app
 
-# Copy only Docusaurus-related files
-COPY ../docs ./docs
+RUN pip install --no-cache-dir uv
 
-# Copy package manager files if they are in the root or inside docs
-COPY ../package.json ../yarn.lock ./
+COPY ../pyproject.toml ../uv.lock ./
 
-# Install dependencies and build
-RUN yarn install --frozen-lockfile
-RUN yarn build
+# Install only UI-related dependencies
+RUN uv pip install --system --extra ui
 
-# Serve built site
-RUN yarn global add serve
+COPY ../ui ./ui
 
-EXPOSE 3000
+EXPOSE 7860
 
-CMD ["serve", "-s", "build", "-l", "3000"]
+CMD ["python", "ui/__init__.py"]

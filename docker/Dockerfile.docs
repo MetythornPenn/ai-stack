@@ -1,16 +1,20 @@
-# docker/Dockerfile.ui
+# docker/Dockerfile.docs
 
-FROM python:3.10-slim
+FROM node:18-slim
 
-WORKDIR /app
+WORKDIR /app/docs
 
-COPY ../requirements.txt .
+# Copy package manager files from the docs folder
+COPY ../docs/package.json ../docs/yarn.lock ./
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN yarn install --frozen-lockfile
+RUN yarn build
 
-COPY ../ui ./ui
+# Install serve for static file hosting
+RUN yarn global add serve
 
-EXPOSE 7860
+COPY ../docs .
 
-# Adjust `ui.main` if your Gradio script is named differently
-CMD ["python", "ui/__init__.py"]
+EXPOSE 3000
+
+CMD ["serve", "-s", "build", "-l", "3000"]
