@@ -1,0 +1,22 @@
+# docker/Dockerfile.docs
+
+FROM node:18-slim
+
+WORKDIR /app
+
+# Copy only Docusaurus-related files
+COPY ../docs ./docs
+
+# Copy package manager files if they are in the root or inside docs
+COPY ../package.json ../yarn.lock ./
+
+# Install dependencies and build
+RUN yarn install --frozen-lockfile
+RUN yarn build
+
+# Serve built site
+RUN yarn global add serve
+
+EXPOSE 3000
+
+CMD ["serve", "-s", "build", "-l", "3000"]

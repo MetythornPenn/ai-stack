@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+    ports:
+      - "8000:8000"
+
+  ui:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.ui
+    ports:
+      - "7860:7860"
+
+  docs:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.docs
+    ports:
+      - "3000:3000"
