@@ -9,7 +9,7 @@ RUN pip install --no-cache-dir uv
 COPY ../pyproject.toml ../uv.lock ./
 
 # Install only UI-related dependencies
-RUN uv pip install --system --extra ui
+RUN uv pip install --system --extra cpu
 
 COPY ../ui ./ui
 

@@ -18,6 +18,8 @@ dependencies = [
     "locust>=2.33.2",
     "onnx>=1.17.0",
     "requests>=2.32.3",
+    "fastapi>=0.115.12",
+    "khmercut>=0.1.0",
 ]
 
 [project.optional-dependencies]
